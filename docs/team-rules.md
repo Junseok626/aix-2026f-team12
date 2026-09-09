@@ -3,7 +3,7 @@
 1주차 활동지(week-01.md)에서 합의한 내용을 여기에 정리합니다.
 *Copy the agreements from week-01.md here.*
 
-1.
+1. 카카오톡, 24시간 이내로 응답
 2.
 3.
 4.
