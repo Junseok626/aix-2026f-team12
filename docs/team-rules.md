@@ -4,7 +4,7 @@
 *Copy the agreements from week-01.md here.*
 
 1. 카카오톡, 24시간 이내로 응답
-2.
+2. 다음 주 수업 시간 하루 전에는 반드시 제출
 3.
 4.
 5.
