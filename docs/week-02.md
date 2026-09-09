@@ -68,7 +68,9 @@
 ### 실제로 붙여넣은 것 (원문 그대로, 요약 금지)
 
 ```
-A조: class Memo:
+A조: 
+
+class Memo:
     def __init__(self, memo_id: int, title: str, content: str):
         self.id = memo_id
         self.title = title
@@ -122,68 +124,12 @@ if __name__ == "__main__":
     for memo in search_results:
         print(f"[{memo.id}] 제목: {memo.title} | 본문: {memo.content}")
 
-B조: const db = require('./db');
-
-/**
- * 사용자의 메모 목록을 최신순으로 조회한다.
- */
-function listMemos(userId) {
-  return db.all(
-    `SELECT id, title, created_at
-       FROM memos
-      WHERE user_id = ?
-      ORDER BY created_at DESC`,
-    [userId]
-  );
-}
-
-/**
- * 메모 한 건을 조회한다. 본인 메모가 아니면 null을 반환한다.
- */
-function getMemo(userId, memoId) {
-  return db.get(
-    `SELECT id, title, body, created_at
-       FROM memos
-      WHERE id = ? AND user_id = ?`,
-    [memoId, userId]
-  );
-}
-
-/**
- * 메모를 생성한다.
- */
-function createMemo(userId, title, body) {
-  return db.run(
-    `INSERT INTO memos (user_id, title, body, created_at)
-     VALUES (?, ?, ?, datetime('now'))`,
-    [userId, title, body]
-  );
-}
-
-/**
- * 제목 또는 본문에 키워드가 포함된 메모를 최신순으로 조회한다.
- * LIKE 패턴의 %, _ 를 이스케이프해 리터럴 검색어로 취급한다.
- */
-function searchMemos(userId, keyword) {
-  const escaped = keyword.replace(/[\\%_]/g, '\\$&');
-  const pattern = `%${escaped}%`;
-
-  return db.all(
-    `SELECT id, title, created_at
-       FROM memos
-      WHERE user_id = ?
-        AND (title LIKE ? ESCAPE '\\' OR body LIKE ? ESCAPE '\\')
-      ORDER BY created_at DESC`,
-    [userId, pattern, pattern]
-  );
-}
-
-module.exports = { listMemos, getMemo, createMemo, searchMemos };
+B조: 
 
 const db = require('./db');
 
 /**
- * 사용자의 메모 목록을 최신순으로 조회한다.
+ * 사용자의 메모 목록을 최신순으로 조회한다.(service)
  */
 function listMemos(userId) {
   return db.all(
@@ -238,6 +184,56 @@ function searchMemos(userId, keyword) {
 
 module.exports = { listMemos, getMemo, createMemo, searchMemos };
 
+/**
+* router
+*/
+const express = require('express');
+const service = require('./service');
+
+const router = express.Router();
+
+// 메모 검색 (반드시 /memos/:id 보다 먼저 선언)
+router.get('/memos/search', async (req, res) => {
+  const q = req.query.q;
+
+  if (!q || !q.trim()) {
+    return res.status(400).json({ ok: false, error: 'QUERY_REQUIRED' });
+  }
+
+  const memos = await service.searchMemos(req.user.id, q.trim());
+  res.json({ ok: true, data: memos });
+});
+
+// 메모 목록 조회
+router.get('/memos', async (req, res) => {
+  const memos = await service.listMemos(req.user.id);
+  res.json({ ok: true, data: memos });
+});
+
+// 메모 단건 조회
+router.get('/memos/:id', async (req, res) => {
+  const memo = await service.getMemo(req.user.id, req.params.id);
+
+  if (!memo) {
+    return res.status(404).json({ ok: false, error: 'MEMO_NOT_FOUND' });
+  }
+
+  res.json({ ok: true, data: memo });
+});
+
+// 메모 생성
+router.post('/memos', async (req, res) => {
+  const { title, body } = req.body;
+
+  if (!title || !body) {
+    return res.status(400).json({ ok: false, error: 'TITLE_AND_BODY_REQUIRED' });
+  }
+
+  const result = await service.createMemo(req.user.id, title, body);
+  res.status(201).json({ ok: true, data: { id: result.lastID } });
+});
+
+module.exports = router;
 ```
 
 > 요약하지 마세요. 나중에 이 기록이 무엇이 결과를 만들었는지 확인하는 근거가 됩니다.
