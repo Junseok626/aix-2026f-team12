@@ -3,14 +3,14 @@
 **팀 규칙 세우기 / Setting team rules**
 
 - 작성일 / Date: 26-09-09
-- 참여자 / Present: 김준석, 
+- 참여자 / Present: 김준석, 김명준, 정찬영
 - 최종 반영 / Feeds into: docs/team-rules.md
 
 ---
 
 ## 팀명·팀원·학부 / Team, members, department
 
-AI 융합 13팀 / 김준석,   / 데이터인텔리전스 학과
+AI 융합 13팀 / 김준석, 김명준, 정찬영   / 데이터인텔리전스 학과
 
 ## 연락 규칙 / Contact rule — 어디로, 몇 시간 내 응답
 
