@@ -68,7 +68,176 @@
 ### 실제로 붙여넣은 것 (원문 그대로, 요약 금지)
 
 ```
-(여기에 붙여넣기)
+A조: class Memo:
+    def __init__(self, memo_id: int, title: str, content: str):
+        self.id = memo_id
+        self.title = title
+        self.content = content
+
+class MemoManager:
+    def __init__(self):
+        self.memos: list[Memo] = []
+
+    def add_memo(self, memo_id: int, title: str, content: str):
+        """메모 추가"""
+        self.memos.append(Memo(memo_id, title, content))
+
+    def search_memos(self, keyword: str, case_sensitive: bool = False) -> list[Memo]:
+        """
+        제목이나 본문에 키워드가 포함된 메모를 검색합니다.
+        
+        :param keyword: 검색할 단어
+        :param case_sensitive: 대소문자 구분 여부 (기본값: False)
+        :return: 검색 조건에 맞는 Memo 객체 리스트
+        """
+        if not keyword or not keyword.strip():
+            return []
+
+        search_keyword = keyword if case_sensitive else keyword.lower()
+        results = []
+
+        for memo in self.memos:
+            title = memo.title if case_sensitive else memo.title.lower()
+            content = memo.content if case_sensitive else memo.content.lower()
+
+            if search_keyword in title or search_keyword in content:
+                results.append(memo)
+
+        return results
+
+# --- 사용 예시 ---
+if __name__ == "__main__":
+    manager = MemoManager()
+    
+    # 샘플 메모 등록
+    manager.add_memo(1, "장보기 목록", "사과, 바나나, 우유 사기")
+    manager.add_memo(2, "파이썬 공부", "리스트와 딕셔너리 복습하기")
+    manager.add_memo(3, "여행 계획", "제주도 비행기 표 예매 및 숙소 예약")
+
+    # 검색 실행
+    keyword = "비행기"
+    search_results = manager.search_memos(keyword)
+
+    print(f"'{keyword}' 검색 결과 ({len(search_results)}건):")
+    for memo in search_results:
+        print(f"[{memo.id}] 제목: {memo.title} | 본문: {memo.content}")
+
+B조: const db = require('./db');
+
+/**
+ * 사용자의 메모 목록을 최신순으로 조회한다.
+ */
+function listMemos(userId) {
+  return db.all(
+    `SELECT id, title, created_at
+       FROM memos
+      WHERE user_id = ?
+      ORDER BY created_at DESC`,
+    [userId]
+  );
+}
+
+/**
+ * 메모 한 건을 조회한다. 본인 메모가 아니면 null을 반환한다.
+ */
+function getMemo(userId, memoId) {
+  return db.get(
+    `SELECT id, title, body, created_at
+       FROM memos
+      WHERE id = ? AND user_id = ?`,
+    [memoId, userId]
+  );
+}
+
+/**
+ * 메모를 생성한다.
+ */
+function createMemo(userId, title, body) {
+  return db.run(
+    `INSERT INTO memos (user_id, title, body, created_at)
+     VALUES (?, ?, ?, datetime('now'))`,
+    [userId, title, body]
+  );
+}
+
+/**
+ * 제목 또는 본문에 키워드가 포함된 메모를 최신순으로 조회한다.
+ * LIKE 패턴의 %, _ 를 이스케이프해 리터럴 검색어로 취급한다.
+ */
+function searchMemos(userId, keyword) {
+  const escaped = keyword.replace(/[\\%_]/g, '\\$&');
+  const pattern = `%${escaped}%`;
+
+  return db.all(
+    `SELECT id, title, created_at
+       FROM memos
+      WHERE user_id = ?
+        AND (title LIKE ? ESCAPE '\\' OR body LIKE ? ESCAPE '\\')
+      ORDER BY created_at DESC`,
+    [userId, pattern, pattern]
+  );
+}
+
+module.exports = { listMemos, getMemo, createMemo, searchMemos };
+
+const db = require('./db');
+
+/**
+ * 사용자의 메모 목록을 최신순으로 조회한다.
+ */
+function listMemos(userId) {
+  return db.all(
+    `SELECT id, title, created_at
+       FROM memos
+      WHERE user_id = ?
+      ORDER BY created_at DESC`,
+    [userId]
+  );
+}
+
+/**
+ * 메모 한 건을 조회한다. 본인 메모가 아니면 null을 반환한다.
+ */
+function getMemo(userId, memoId) {
+  return db.get(
+    `SELECT id, title, body, created_at
+       FROM memos
+      WHERE id = ? AND user_id = ?`,
+    [memoId, userId]
+  );
+}
+
+/**
+ * 메모를 생성한다.
+ */
+function createMemo(userId, title, body) {
+  return db.run(
+    `INSERT INTO memos (user_id, title, body, created_at)
+     VALUES (?, ?, ?, datetime('now'))`,
+    [userId, title, body]
+  );
+}
+
+/**
+ * 제목 또는 본문에 키워드가 포함된 메모를 최신순으로 조회한다.
+ * LIKE 패턴의 %, _ 를 이스케이프해 리터럴 검색어로 취급한다.
+ */
+function searchMemos(userId, keyword) {
+  const escaped = keyword.replace(/[\\%_]/g, '\\$&');
+  const pattern = `%${escaped}%`;
+
+  return db.all(
+    `SELECT id, title, created_at
+       FROM memos
+      WHERE user_id = ?
+        AND (title LIKE ? ESCAPE '\\' OR body LIKE ? ESCAPE '\\')
+      ORDER BY created_at DESC`,
+    [userId, pattern, pattern]
+  );
+}
+
+module.exports = { listMemos, getMemo, createMemo, searchMemos };
+
 ```
 
 > 요약하지 마세요. 나중에 이 기록이 무엇이 결과를 만들었는지 확인하는 근거가 됩니다.
