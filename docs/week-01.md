@@ -2,35 +2,23 @@
 
 **팀 규칙 세우기 / Setting team rules**
 
-- 작성일 / Date: 
-- 참여자 / Present: 
+- 작성일 / Date: 26-09-09
+- 참여자 / Present: 김준석, 
 - 최종 반영 / Feeds into: docs/team-rules.md
 
 ---
 
 ## 팀명·팀원·학부 / Team, members, department
 
-
+AI 융합 13팀 / 김준석,   / 데이터인텔리전스 학과
 
 ## 연락 규칙 / Contact rule — 어디로, 몇 시간 내 응답
 
-
-
-## 회의 규칙 / Meeting rule — 요일·시간·불참 처리
-
-
-
-## 기여 규칙 / Contribution rule — 1인당 주 최소 작업량
-
-
-
-## 갈등 처리 / Conflict rule — 의견이 갈릴 때
-
-
+카카오톡, 24시간 이내로 응답
 
 ## 마감 규칙 / Deadline rule
 
-
+다음 주 수업 시간 하루 전에는 반드시 제출
 
 ## **팀 공용 언어 / Working language** — 회의 언어 / 기록 언어
 
@@ -38,10 +26,7 @@
 
 ## AI 사용에 대한 팀 합의 / Team agreement on AI use
 
-
-
-## 성찰 / Reflection — 가장 걱정되는 것
-
+AI사용 후 스스로 검토와 이해까지 끝내고 다음 단계로 넘어갈 것 
 
 
 ---
