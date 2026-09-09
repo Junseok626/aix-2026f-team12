@@ -22,7 +22,7 @@ AI 융합 13팀 / 김준석,   / 데이터인텔리전스 학과
 
 ## **팀 공용 언어 / Working language** — 회의 언어 / 기록 언어
 
-
+파이썬
 
 ## AI 사용에 대한 팀 합의 / Team agreement on AI use
 
