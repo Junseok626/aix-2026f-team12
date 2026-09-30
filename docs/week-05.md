@@ -51,7 +51,7 @@
 - 어려우면 종이에 그려 사진을 `docs/images/`에 올리고 `![DAG](images/week-05-dag.jpg)`로 넣어도 됩니다.
   *Or draw it on paper, upload the photo to `docs/images/` and link it with `![DAG](images/week-05-dag.jpg)`.*
 
-```mermaid
+
 graph LR
   # 프로젝트 태스크 의존성
 
