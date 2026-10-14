@@ -2,19 +2,54 @@
 
 | 팀명 / Team | 작성일 / Date | 참여자 / Members |
 |---|---|---|
-| | | |
+| team12 | 26-10-14 | 김명준,김준석,정찬영 |
 
 ## 1. 아키텍처 다이어그램 / Architecture Diagram
 
-손그림 사진을 올리고 링크하십시오 / Upload a photo and link it.
+## 아키텍처
 
-![architecture](img/week-07-arch.png)
+```mermaid
+flowchart TB
+    subgraph P["표현 계층 (Presentation)"]
+        direction LR
+        P1["로그인"]
+        P2["비교 대시보드<br/>검색·필터"]
+        P3["과목 상세 모달"]
+        P4["내 시간표"]
+        P5["커리큘럼<br/>이수체계도"]
+    end
+
+    subgraph L["로직 계층 (Logic)"]
+        direction LR
+        L1["routes.py<br/>검색·담기·강의평 요청 처리"]
+        L2["check_overlap.py<br/>시간표 겹침 판별"]
+    end
+
+    subgraph D["데이터 계층 (Data)"]
+        direction LR
+        D1["models.py<br/>DB 조회"]
+        D2[("sugang.db<br/>SQLite")]
+        D3["import_csv.py<br/>CSV → DB"]
+        D4["data/raw/*.csv"]
+        D5["fetch_courses.py<br/>API 수집"]
+        D1 --> D2
+        D3 --> D2
+        D4 --> D3
+        D5 --> D4
+    end
+
+    EXT["수강편람 API<br/>(외부)"]
+
+    P --> L
+    L --> D
+    EXT -.->|"발표 전 사전 수집"| D5
+```
 
 | 계층 / Layer | 모듈·파일 / Modules | 의존하지 않는 것 / Does not depend on |
 |---|---|---|
-| 표현 / Presentation | | |
-| 로직 / Logic | | |
-| 데이터 / Data | | |
+| 표현 / Presentation | `frontend/` : 로그인, 비교 대시보드(검색·필터), 과목 상세 모달, 내 시간표, 커리큘럼(이수체계도) 화면 | DB 파일(`sugang.db`), CSV 파일, 수강편람 API, SQL |
+| 로직 / Logic | `routes.py` (검색·필터·담기·강의평 요청 처리), `overlap.py` (시간표 겹침 판별) | 화면 구성(HTML/CSS), CSV 파일, 수강편람 API, 데이터 수집 스크립트 |
+| 데이터 / Data | `models.py` (DB 조회), `init_db.py` (DB 생성), `import_csv.py` (CSV → DB) | 화면(`frontend/`), 시간표 겹침 로직 |
 
 ## 2. 이슈 / Issues
 
