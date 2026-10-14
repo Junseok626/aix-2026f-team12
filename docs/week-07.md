@@ -12,11 +12,11 @@
 flowchart TB
     subgraph P["표현 계층 (Presentation)"]
         direction LR
-        P1["로그인"]
-        P2["비교 대시보드<br/>검색·필터"]
-        P3["과목 상세 모달"]
-        P4["내 시간표"]
-        P5["커리큘럼<br/>이수체계도"]
+       
+        P1["비교 대시보드<br/>검색·필터"]
+        P2["과목 상세 모달"]
+        P3["내 시간표"]
+        P4["커리큘럼<br/>이수체계도"]
     end
 
     subgraph L["로직 계층 (Logic)"]
