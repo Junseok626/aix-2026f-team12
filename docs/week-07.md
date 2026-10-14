@@ -28,14 +28,13 @@ flowchart TB
     subgraph D["데이터 계층 (Data)"]
         direction LR
         D1["models.py<br/>DB 조회"]
-        D2[("sugang.db<br/>SQLite")]
+        D2[("자체 제작 db(sugang.db")]
         D3["import_csv.py<br/>CSV → DB"]
-        D4["data/raw/*.csv"]
-        D5["fetch_courses.py<br/>API 수집"]
+        D4["직접 작성한 CSV파일"]
         D1 --> D2
         D3 --> D2
         D4 --> D3
-        D5 --> D4
+        
     end
 
     EXT["과목 정보<br/>(직접 수집)"]
