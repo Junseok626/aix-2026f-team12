@@ -41,7 +41,7 @@ flowchart TB
 
     P --> L
     L --> D
-    EXT -.->|"발표 전 사전 수집"| D5
+    EXT -.->|"발표 전 사전 수집"| D4
 ```
 
 | 계층 / Layer | 모듈·파일 / Modules | 의존하지 않는 것 / Does not depend on |
