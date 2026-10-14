@@ -38,7 +38,7 @@ flowchart TB
         D5 --> D4
     end
 
-    EXT["수강편람 API<br/>(외부)"]
+    EXT["과목 정보<br/>(직접 수집)"]
 
     P --> L
     L --> D
