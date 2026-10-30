@@ -4,6 +4,7 @@
 
 - 작성일 / Date: 26/10/28
 - 참여자 / Present: 김명준,김준석,정찬영
+- 팀 프로젝트 repository 주소: https://github.com/Junseok626/sugang-dashboard
 
 ---
 
