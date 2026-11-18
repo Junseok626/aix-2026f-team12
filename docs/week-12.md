@@ -1,4 +1,4 @@
-# 11주차 활동지 / Week 11 Worksheet
+# 12주차 활동지 / Week 12 Worksheet
 
 **개발 착수 / Starting development**
 
